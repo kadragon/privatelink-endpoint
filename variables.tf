@@ -12,3 +12,7 @@ variable "ptfe_service" {
   type    = string
   default = "com.amazonaws.vpce.ap-northeast-2.vpce-svc-0d90cf62dae682b84"
 }
+variable "phsd_service" {
+  type    = string
+  default = "vpce.ap-northeast-2.aws.elastic-cloud.com"
+}

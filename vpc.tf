@@ -41,50 +41,29 @@ resource "aws_subnet" "elastic-subnet-3" {
   }
 }
 
-# resource "aws_internet_gateway" "elastic-igw" {
-#   vpc_id = aws_vpc.elastic-vpc.id
+resource "aws_network_interface" "elastic-interface" {
+  subnet_id = aws_subnet.elastic-subnet-2.id
 
-#   tags = {
-#     Name = "elastic-vpc"
-#   }
-# }
+  tags = {
+    Name = "elastic-interface"
+  }
+}
 
-# resource "aws_route_table" "elastic-vpc-route-table" {
-#   vpc_id = aws_vpc.elastic-vpc.id
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_zone
+resource "aws_route53_zone" "elastic-private-zone" {
+  name = var.phsd_service
 
-#   tags = {
-#     Name = "elastic-vpc-route-table"
-#   }
-# }
+  vpc {
+    vpc_id = aws_vpc.elastic-vpc.id
+  }
+}
 
-# resource "aws_route_table_association" "route_table_association_1" {
-#   subnet_id      = aws_subnet.first_subnet.id
-#   route_table_id = aws_route_table.route_table.id
-# }
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route53_record
+resource "aws_route53_record" "elastic-private-zone-recode" {
+  zone_id = aws_route53_zone.elastic-private-zone.zone_id
+  name    = "*"
+  type    = "CNAME"
+  ttl     = "300"
+  records = [aws_vpc_endpoint.elastic-endpoint.dns_entry[0]["dns_name"]]
+}
 
-# resource "aws_route_table_association" "route_table_association_2" {
-#   subnet_id      = aws_subnet.second_subnet.id
-#   route_table_id = aws_route_table.route_table.id
-# }
-
-# resource "aws_subnet" "first_private_subnet" {
-#   vpc_id     = aws_vpc.main.id
-#   cidr_block = "10.0.3.0/24"
-
-#   availability_zone = "ap-northeast-2a"
-
-#   tags = {
-#     Name = "101subnet-private-1"
-#   }
-# }
-
-# resource "aws_subnet" "second_private_subnet" {
-#   vpc_id     = aws_vpc.main.id
-#   cidr_block = "10.0.4.0/24"
-
-#   availability_zone = "ap-northeast-2b"
-
-#   tags = {
-#     Name = "101subnet-private-2"
-#   }
-# }

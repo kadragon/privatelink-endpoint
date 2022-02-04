@@ -16,3 +16,4 @@ resource "aws_vpc_endpoint" "elastic-endpoint" {
     "Name" : "elastic-endpoint"
   }
 }
+
