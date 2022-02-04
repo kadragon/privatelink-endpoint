@@ -1,3 +1,5 @@
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_endpoint
+
 resource "aws_vpc_endpoint" "elastic-endpoint" {
   vpc_id            = aws_vpc.elastic-vpc.id
   service_name      = var.ptfe_service

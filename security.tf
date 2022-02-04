@@ -1,3 +1,5 @@
+# https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group_rule
+
 resource "aws_security_group" "elastic-security" {
   vpc_id      = aws_vpc.elastic-vpc.id
   name        = "ElasticSearch Security Group"

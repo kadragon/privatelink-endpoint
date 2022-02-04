@@ -1,3 +1,5 @@
+## https://www.terraform.io/language/settings/backends
+
 # S3 bucket for backend
 resource "aws_s3_bucket" "terraform_tfstate" {
   bucket = "privatelink-endpoint-kadragon-tfstate"
@@ -7,6 +9,7 @@ resource "aws_s3_bucket" "terraform_tfstate" {
   }
 }
 
+# dynamodb for backend
 resource "aws_dynamodb_table" "terraform_statelock" {
   name           = "terraform-statelock"
   read_capacity  = 5

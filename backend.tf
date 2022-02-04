@@ -1,9 +1,11 @@
+# https://www.terraform.io/language/settings/backends/s3
+
 terraform {
-  backend "s3" { # 강의는 
+  backend "s3" {
     region = "ap-northeast-2"
 
-    bucket = "privatelink-endpoint-kadragon-tfstate" # s3 bucket 이름
-    key    = "terraform.tfstate"                     # s3 내에서 저장되는 경로를 의미합니다.
+    bucket = "privatelink-endpoint-kadragon-tfstate"
+    key    = "terraform.tfstate"
 
     dynamodb_table = "terraform-statelock"
 
